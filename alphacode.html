@@ -1,0 +1,285 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>slides</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+        <style>
+            body{
+            background:red;
+            }
+            .intro,
+            .intro a{
+            color:#fff;
+            }
+            /* customizable snowflake styling */
+            .snowflake {
+            color: #fff;
+            font-size: 1em;
+            font-family: Arial;
+            text-shadow: 0 0 1px #000;
+            }
+            
+            @-webkit-keyframes snowflakes-fall{0%{top:-10%}100%{top:100%}}@-webkit-keyframes snowflakes-shake{0%{-webkit-transform:translateX(0px);transform:translateX(0px)}50%{-webkit-transform:translateX(80px);transform:translateX(80px)}100%{-webkit-transform:translateX(0px);transform:translateX(0px)}}@keyframes snowflakes-fall{0%{top:-10%}100%{top:100%}}@keyframes snowflakes-shake{0%{transform:translateX(0px)}50%{transform:translateX(80px)}100%{transform:translateX(0px)}}.snowflake{position:fixed;top:-10%;z-index:9999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default;-webkit-animation-name:snowflakes-fall,snowflakes-shake;-webkit-animation-duration:10s,3s;-webkit-animation-timing-function:linear,ease-in-out;-webkit-animation-iteration-count:infinite,infinite;-webkit-animation-play-state:running,running;animation-name:snowflakes-fall,snowflakes-shake;animation-duration:10s,3s;animation-timing-function:linear,ease-in-out;animation-iteration-count:infinite,infinite;animation-play-state:running,running}.snowflake:nth-of-type(0){left:1%;-webkit-animation-delay:0s,0s;animation-delay:0s,0s}.snowflake:nth-of-type(1){left:10%;-webkit-animation-delay:1s,1s;animation-delay:1s,1s}.snowflake:nth-of-type(2){left:20%;-webkit-animation-delay:6s,.5s;animation-delay:6s,.5s}.snowflake:nth-of-type(3){left:30%;-webkit-animation-delay:4s,2s;animation-delay:4s,2s}.snowflake:nth-of-type(4){left:40%;-webkit-animation-delay:2s,2s;animation-delay:2s,2s}.snowflake:nth-of-type(5){left:50%;-webkit-animation-delay:8s,3s;animation-delay:8s,3s}.snowflake:nth-of-type(6){left:60%;-webkit-animation-delay:6s,2s;animation-delay:6s,2s}.snowflake:nth-of-type(7){left:70%;-webkit-animation-delay:2.5s,1s;animation-delay:2.5s,1s}.snowflake:nth-of-type(8){left:80%;-webkit-animation-delay:1s,0s;animation-delay:1s,0s}.snowflake:nth-of-type(9){left:90%;-webkit-animation-delay:3s,1.5s;animation-delay:3s,1.5s}
+            /* Demo Purpose Only*/
+            .demo {
+            font-family: 'Raleway', sans-serif;
+                color:#fff;
+                display: block;
+                margin: 0 auto;
+                padding: 15px 0;
+                text-align: center;
+            }
+            .demo a{
+            font-family: 'Raleway', sans-serif;
+            color: #000;		
+            }
+        </style>
+	</head>
+	<body>
+        <div class="reveal">
+			<div class="slides">
+                <section>
+                    <section data-markdown>
+						<textarea data-template>
+							## Deepmind Alphacode  
+							Zhuolin Hou  
+							2022.06.26
+						</textarea>
+					</section>
+                    <section data-markdown>
+						<textarea data-template>
+							## 前情回顾 - Codex
+							- 根据docstring，生成代码
+							- 使用开源代码，训练GPT3，达到30% pass rate
+							- 又准备了一个新的数据集，进一步提高pass rate
+						</textarea>
+					</section>
+                    <section data-markdown>
+						<textarea data-template>
+							## 前情回顾 - 不足之处
+							- 文档不能太长，代码不能太复杂
+							- [~~Copiliot收费~~](https://github.com/features/copilot)
+						</textarea>
+					</section>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## 简介
+                        - 利用代码生成解决算法竞赛问题
+                        - [Alphacode](https://www.deepmind.com/blog/competitive-programming-with-alphacode)
+                    </textarea>
+                </section>
+                
+                <section data-markdown>
+                    <textarea data-template>
+                        ## 论文
+                        - [Competition-Level Code Generation with AlphaCode](https://storage.googleapis.com/deepmind-media/AlphaCode/competition_level_code_generation_with_alphacode.pdf)
+                        - 标题翻译：用Alphacode生成竞赛级别的代码
+                        - 发表：2022-2-19
+                        - 基于Codex
+                    </textarea>
+                </section>
+                
+                <section data-markdown>
+                    <textarea data-template>
+                        ## 摘要
+                        - Alphacode在Codeforces打败54.3%的竞赛者
+                        - 三个重要的工作：Dataset + Transformer + Sampling
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## 导言
+                        - 前三段：讲历史加吐槽，即Codex解决的问题太简单了
+                        - 解决更难的问题
+                        - 图1：Alphacode参加10次比赛的结果
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## 算法竞赛 - TLDR
+                        - 图2是问题描述
+                        - 图3是Alphacode生成的题解
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## 评估：
+                        - 线下的评估机制
+                        - n@k:
+                            - 对比Codex的pass@k
+                                - k: 模型能够采样出k个候选答案
+                                - n: 对候选答案进行排序，只要在前n个答案找出1个正确答案，那么就表示完成了（这里n<=k）
+                        - 为什么要用n@k?
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## 数据集
+                        - 两个数据集：预训练 + 微调
+                            - 预训练：和Codex一样，来自github（~~Ignore open source protocol，too~~）
+                            - 微调：Codeforces + 一些其他的竞赛网站
+                                - [CodeContests](https://github.com/deepmind/code_contests)
+                                - 表1 + 表2
+                        - Dataset false positive rate
+                            - 我们用模型生成了答案，通过了样例，认为他pass了，但是实际上没pass
+                            - [WR, TLE...](https://www.zhihu.com/question/371296221)
+                            - 用程序去解决程序的问题
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## 架构
+                        - encoder-decoder Transformer
+                        - 对比Codex：
+                            - 非技术因素
+                            - 技术因素
+                                - [GPT2/3 vs. Transformer](https://jalammar.github.io/illustrated-gpt2/)
+                                - 算法问题描述很长，如果只用GPT3解码器架构，对于问题的理解不好
+                                - 为什么对于问题的理解不好？                         
+                        - 使用的Transformer也做了改动，表3
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## 预训练
+                        - 首先讲了一下，团队在训练最大的模型时token数量缩水，资源（~~💵~~）有限
+                        - 标准的预训练，跳过
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## 微调
+                        - 三个新技术
+                            - Tempering
+                            - Value conditioning & prediction
+                            - GOLD
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## 采样
+                        - 重点是生成解的多样性
+                        - 对比codex又做了提高
+                        - top-k和核采样没必要，用softmax就可以
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## 过滤
+                        - 用题目描述自带的测试样例，就可以过滤掉99%的模型输出
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## 聚类
+                        - 额外训练了一个模型
+                            - 只是微调不一样：输入测试样例，来预测新的测试样例
+                            - 泛化作用                   
+                        - 然后把这些测试样例放到生成的解里得到输出，根据输出对解进行聚类
+                        - 在每个类里挑一个解出来，最后按类大小作为排序（从大到小依次提交）
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## 实验、局限性和影响跳过
+                    </textarea>
+                </section>
+
+                <section>
+                    <section data-markdown>
+                        <textarea data-template>
+                            ## 总结
+                            - 整体思路和codex相似，细节不同
+                            - 主要是架构区别
+                        </textarea>
+                    </section>
+                    
+                    <section data-markdown>
+                        <textarea data-template>
+                            ## 展望                            
+                            - [An interview with the creators of AlphaCode](https://www.youtube.com/watch?v=C5sWbYwzKyg)
+                                - Reduce the number of samples
+                                - Not just about competitive programming, but about people working on programs and business in general with ML.
+                            - Openai vs. Deepmind? Microsoft vs. Google!
+                        </textarea>
+                    </section>
+                    
+                    <section>
+                        <div class="snowflakes" aria-hidden="true">
+                            <div class="intro">如何看待微软宣布停用 Atom 编辑器，如何评价 Atom 编辑器的历史？<a href="https://www.zhihu.com/question/536847199/answer/2524631042">为什么会变成这样呢...</a></div>
+                            <div class="snowflake">
+                            ❅
+                            </div>
+                            <div class="snowflake">
+                            ❅
+                            </div>
+                            <div class="snowflake">
+                            ❆
+                            </div>
+                            <div class="snowflake">
+                            ❄
+                            </div>
+                            <div class="snowflake">
+                            ❅
+                            </div>
+                            <div class="snowflake">
+                            ❆
+                            </div>
+                            <div class="snowflake">
+                            ❄
+                            </div>
+                            <div class="snowflake">
+                            ❅
+                            </div>
+                            <div class="snowflake">
+                            ❆
+                            </div>
+                            <div class="snowflake">
+                            ❄
+                            </div>
+                          </div> 
+                    </section>
+                </section>
+
+            </div>
+        </div>
+        
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
